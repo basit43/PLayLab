@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937461069265",
+    "project_id": "anandguruvani-007",
+    "storage_bucket": "anandguruvani-007.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937461069265:android:14dbfe5ee116546845dcf0",
+        "android_client_info": {
+          "package_name": "com.blissfull.life"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOksJ_D3GNYR_uT1dlgWpY1V4XKb4wwG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
