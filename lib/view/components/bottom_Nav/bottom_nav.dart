@@ -1,3 +1,4 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -25,54 +26,57 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: widget.currentIndex,
-      showSelectedLabels: true,
-      // itemCornerRadius: 24,
-      // curve: Curves.easeIn,
+    return BottomNavyBar(
+      selectedIndex: widget.currentIndex,
+      showElevation: true,
+      itemCornerRadius: 24,
+      curve: Curves.easeIn,
       backgroundColor: MyColor.cardBg,
-      onTap: (value) {
-        _onTap(value);
+      onItemSelected: (index) {
+        _onTap(index);
       },
-      // onItemSelected: (index) {
-      //   _onTap(index);
-      // },
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Image.asset(
-            MyImages.homeIcon,
-            height: 16,
-            width: 16,
-            color: widget.currentIndex == 0
-                ? MyColor.primaryColor
-                : MyColor.colorWhite,
-          ),
-          label: MyStrings.home.tr,
-        ),
-        BottomNavigationBarItem(
-          icon: Image.asset(
-            MyImages.allMovieIcon,
-            height: 16,
-            width: 16,
-            color: widget.currentIndex == 1
-                ? MyColor.primaryColor
-                : MyColor.colorWhite,
-          ),
-          label: MyStrings.movie.tr,
-        ),
-        BottomNavigationBarItem(
-          icon: Image.asset(
-            MyImages.allTvSeriesIcon,
-            height: 16,
-            width: 16,
-            color: widget.currentIndex == 2
-                ? MyColor.primaryColor
-                : MyColor.colorWhite,
-          ),
-          label: MyStrings.allEpisodes.tr,
-        ),
-        BottomNavigationBarItem(
-            icon: Image.asset(
+      items: <BottomNavyBarItem>[
+        BottomNavyBarItem(
+            icon: SvgPicture.asset(
+              MyImages.homeIcon,
+              height: 16,
+              width: 16,
+              color: widget.currentIndex == 0
+                  ? MyColor.primaryColor
+                  : MyColor.colorWhite,
+            ),
+            title: Text(MyStrings.home.tr),
+            activeColor: MyColor.primaryColor,
+            textAlign: TextAlign.center,
+            inactiveColor: MyColor.primaryText),
+        BottomNavyBarItem(
+            icon: SvgPicture.asset(
+              MyImages.allMovieIcon,
+              height: 16,
+              width: 16,
+              color: widget.currentIndex == 1
+                  ? MyColor.primaryColor
+                  : MyColor.colorWhite,
+            ),
+            title: Text(MyStrings.movie.tr),
+            activeColor: MyColor.primaryColor,
+            textAlign: TextAlign.center,
+            inactiveColor: MyColor.primaryText),
+        BottomNavyBarItem(
+            icon: SvgPicture.asset(
+              MyImages.allTvSeriesIcon,
+              height: 16,
+              width: 16,
+              color: widget.currentIndex == 2
+                  ? MyColor.primaryColor
+                  : MyColor.colorWhite,
+            ),
+            title: Text(MyStrings.allEpisodes.tr),
+            activeColor: MyColor.primaryColor,
+            textAlign: TextAlign.center,
+            inactiveColor: MyColor.primaryText),
+        BottomNavyBarItem(
+            icon: SvgPicture.asset(
               MyImages.menuIcon,
               height: 16,
               width: 16,
@@ -80,7 +84,10 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
                   ? MyColor.primaryColor
                   : MyColor.colorWhite,
             ),
-            label: MyStrings.menu.tr),
+            title: Text(MyStrings.menu.tr),
+            activeColor: MyColor.primaryColor,
+            textAlign: TextAlign.center,
+            inactiveColor: MyColor.primaryText),
       ],
     );
   }

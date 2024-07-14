@@ -47,7 +47,7 @@ dependencies:
   google_mobile_ads: ^5.1.0
   pay: ^2.0.0
   flutter_cache_manager: ^3.3.0
-#  bottom_navy_bar: ^6.0.0
+  bottom_navy_bar: ^6.0.0
   fluttertoast: ^8.2.4
   gap: ^3.0.1
   provider: ^6.1.1

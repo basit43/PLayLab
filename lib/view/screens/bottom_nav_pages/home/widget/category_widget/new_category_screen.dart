@@ -31,23 +31,44 @@ class CategoryScreen extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 10.0,),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          category.name.toString(),
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                category.name.toString(),
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Get.toNamed(RouteHelper.allEpisodeScreen);
+                                  },
+                                  child: const Text(
+                                    'Show More',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ]),
                       ),
-                      const SizedBox(height: 15.0,),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
                       SizedBox(
-                        height: 180,
+                        height: 190,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: category.items?.length,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
+                            if (index >= 4) {
+                              return const SizedBox.shrink();
+                            }
                             Items item = category.items![index];
                             print(
                                 "Chinto $baseUrl$landScapePath${item.image!.portrait.toString()}");
@@ -59,13 +80,15 @@ class CategoryScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   GestureDetector(
-                                    onTap: (){
-                                      Get.toNamed(RouteHelper.movieDetailsScreen, arguments: [
-                                        item.id,
-                                        // index,
-                                        -1
-                                      ]);
-                            },
+                                    onTap: () {
+                                      Get.toNamed(
+                                          RouteHelper.movieDetailsScreen,
+                                          arguments: [
+                                            item.id,
+                                            // index,
+                                            -1
+                                          ]);
+                                    },
                                     child: CachedNetworkImage(
                                       imageUrl:
                                           '$baseUrl$landScapePath${item.image!.portrait.toString()}',
@@ -80,6 +103,8 @@ class CategoryScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(item.title.toString(),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis),
                                   SingleChildScrollView(
