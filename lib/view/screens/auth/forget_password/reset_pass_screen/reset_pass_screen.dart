@@ -16,7 +16,6 @@ import '../../../../components/buttons/rounded_button.dart';
 import '../../../../components/custom_text_field.dart';
 import '../../../../components/from_errors.dart';
 
-
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key}) : super(key: key);
 
@@ -25,16 +24,14 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-
   @override
   void initState() {
-
     MyUtil.changeTheme();
 
     Get.put(ApiClient(sharedPreferences: Get.find()));
-    Get.put(LoginRepo(apiClient:Get.find(),sharedPreferences: Get.find()));
-    final controller =Get.put(ForgetPasswordController(loginRepo: Get.find()));
-    controller.email=Get.arguments;
+    Get.put(LoginRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
+    final controller = Get.put(ForgetPasswordController(loginRepo: Get.find()));
+    controller.email = Get.arguments;
     super.initState();
   }
 
@@ -46,19 +43,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<ForgetPasswordController>().isLoading=false;
+    Get.find<ForgetPasswordController>().isLoading = false;
     return Stack(
       children: [
         const MyBgWidget(),
         WillPopScope(
-          onWillPop: ()async{
+          onWillPop: () async {
             return false;
           },
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: CustomAppBar(
-                title:MyStrings.resetPassword.tr,fromAuth: true
-            ),
+            appBar:
+                CustomAppBar(title: MyStrings.resetPassword.tr, fromAuth: true),
             body: GetBuilder<ForgetPasswordController>(
               builder: (controller) => SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -74,12 +70,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         height: MediaQuery.of(context).size.height * .07,
                       ),
                       Padding(
-                        padding:
-                        EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*.1, vertical: 8),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width * .1,
+                            vertical: 8),
                         child: RichText(
-                          text:  TextSpan(
+                          text: TextSpan(
                               text: MyStrings.resetLabelText.tr,
-                              style:const TextStyle(color: MyColor.t2, fontSize: Dimensions.authTextSize)),
+                              style: const TextStyle(
+                                  color: MyColor.t2,
+                                  fontSize: Dimensions.authTextSize)),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -97,17 +96,22 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               isPassword: true,
                               inputType: TextInputType.text,
                               onChanged: (value) {
-                                controller.password=value;
+                                controller.password = value;
                                 if (value.isNotEmpty) {
-                                  controller.removeError(error: MyStrings.kPassNullError);
-                                }else{
-                                  controller.addError(error: MyStrings.kPassNullError);
+                                  controller.removeError(
+                                      error: MyStrings.kPassNullError);
+                                } else {
+                                  controller.addError(
+                                      error: MyStrings.kPassNullError);
                                 }
-                                if(controller.password.toString()==controller.confirmPassword.toString()){
-                                  controller.removeError(error: MyStrings.kMatchPassError);
+                                if (controller.password.toString() ==
+                                    controller.confirmPassword.toString()) {
+                                  controller.removeError(
+                                      error: MyStrings.kMatchPassError);
                                   return;
-                                }else{
-                                  controller.addError(error: MyStrings.kMatchPassError);
+                                } else {
+                                  controller.addError(
+                                      error: MyStrings.kMatchPassError);
                                   return;
                                 }
                               }),
@@ -120,17 +124,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               isPassword: true,
                               hintText: MyStrings.confirmPassword,
                               isShowSuffixIcon: true,
-                              onChanged: (value){
-                                controller.confirmPassword=value;
-                                if(controller.password.toString()==controller.confirmPassword.toString()){
-                                  controller.removeError(error: MyStrings.kMatchPassError);
+                              onChanged: (value) {
+                                controller.confirmPassword = value;
+                                if (controller.password.toString() ==
+                                    controller.confirmPassword.toString()) {
+                                  controller.removeError(
+                                      error: MyStrings.kMatchPassError);
                                   return;
-                                }else{
-                                  controller.addError(error: MyStrings.kMatchPassError);
+                                } else {
+                                  controller.addError(
+                                      error: MyStrings.kMatchPassError);
                                   return;
                                 }
-                              }
-                          ),
+                              }),
                           const SizedBox(
                             height: 10,
                           ),
@@ -138,15 +144,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           const SizedBox(
                             height: 50,
                           ),
-                          controller.isLoading ?
-                          const RoundedLoadingButton()
+                          controller.isLoading
+                              ? const RoundedLoadingButton()
                               : RoundedButton(
-                            width: 1,
-                            text: MyStrings.submit,
-                            press: () {
-                              controller.resetPassword();
-                            },
-                          ),
+                                  width: 1,
+                                  text: MyStrings.submit,
+                                  press: () {
+                                    controller.resetPassword();
+                                  },
+                                ),
                         ],
                       ),
                     ],
@@ -160,4 +166,3 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 }
-

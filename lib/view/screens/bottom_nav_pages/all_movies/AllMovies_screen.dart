@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:play_lab/view/screens/bottom_nav_pages/all_movies/widget/all_movie_list_item.dart';
@@ -17,8 +16,6 @@ import 'package:play_lab/view/components/app_bar/custom_appbar.dart';
 import 'package:play_lab/view/components/bottom_Nav/bottom_nav.dart';
 import 'package:play_lab/view/components/nav_drawer/custom_nav_drawer.dart';
 
-
-
 class AllMovieScreen extends StatefulWidget {
   const AllMovieScreen({Key? key}) : super(key: key);
 
@@ -27,13 +24,11 @@ class AllMovieScreen extends StatefulWidget {
 }
 
 class _AllMovieScreenState extends State<AllMovieScreen> {
-
   ads.BannerAd? _bannerAd;
 
   final adUnitId = Platform.isAndroid
       ? MyStrings.homeAndroidBanner
       : MyStrings.homeIOSBanner;
-
 
   void loadAd() {
     _bannerAd = ads.BannerAd(
@@ -41,8 +36,7 @@ class _AllMovieScreenState extends State<AllMovieScreen> {
       request: const ads.AdRequest(),
       size: ads.AdSize.banner,
       listener: ads.BannerAdListener(
-        onAdLoaded: (ad) {
-        },
+        onAdLoaded: (ad) {},
         onAdFailedToLoad: (ad, err) {
           ad.dispose();
         },
@@ -52,7 +46,6 @@ class _AllMovieScreenState extends State<AllMovieScreen> {
 
   @override
   void initState() {
-
     Get.put(ApiClient(sharedPreferences: Get.find()));
     Get.put(AllMoviesRepo(apiClient: Get.find()));
     final controller = Get.put(AllMoviesController(repo: Get.find()));
@@ -60,7 +53,7 @@ class _AllMovieScreenState extends State<AllMovieScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if(controller.repo.apiClient.isShowAdmobAds()){
+      if (controller.repo.apiClient.isShowAdmobAds()) {
         loadAd();
       }
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -69,7 +62,6 @@ class _AllMovieScreenState extends State<AllMovieScreen> {
           statusBarIconBrightness: Brightness.light,
           systemNavigationBarIconBrightness: Brightness.light));
     });
-
   }
 
   @override
@@ -80,33 +72,38 @@ class _AllMovieScreenState extends State<AllMovieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AllMoviesController>(builder: (controller)=>WillPopWidget(
-      nextRoute: RouteHelper.homeScreen,
-      child: Scaffold(
-        backgroundColor: MyColor.colorBlack,
-        drawer: const NavigationDrawerWidget(),
-        appBar:const CustomAppBar(title:MyStrings.allMovies,isShowBackBtn: false,),
-        body: Stack(
-          children: [
-
-            !controller.isLoading && controller.movieList.isEmpty?const NoDataFoundScreen(): const AllMovieListWidget(),
-            if (_bannerAd != null)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SafeArea(
-                  child: SizedBox(
-                    width: _bannerAd!.size.width.toDouble(),
-                    height: _bannerAd!.size.height.toDouble(),
-                    child: ads.AdWidget(ad: _bannerAd!),
-                  ),
+    return GetBuilder<AllMoviesController>(
+        builder: (controller) => WillPopWidget(
+              nextRoute: RouteHelper.homeScreen,
+              child: Scaffold(
+                backgroundColor: MyColor.colorBlack,
+                drawer: const NavigationDrawerWidget(),
+                appBar: const CustomAppBar(
+                  title: MyStrings.allMovies,
+                  isShowBackBtn: false,
+                ),
+                body: Stack(
+                  children: [
+                    !controller.isLoading && controller.movieList.isEmpty
+                        ? const NoDataFoundScreen()
+                        : const AllMovieListWidget(),
+                    if (_bannerAd != null)
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SafeArea(
+                          child: SizedBox(
+                            width: _bannerAd!.size.width.toDouble(),
+                            height: _bannerAd!.size.height.toDouble(),
+                            child: ads.AdWidget(ad: _bannerAd!),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                bottomNavigationBar: const CustomBottomNav(
+                  currentIndex: 1,
                 ),
               ),
-          ],
-        ),
-        bottomNavigationBar: const CustomBottomNav(
-          currentIndex: 1,
-        ),
-      ),
-    ));
+            ));
   }
 }

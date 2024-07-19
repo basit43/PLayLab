@@ -48,7 +48,7 @@ class _SmsVerificationScreenState extends State<SmsVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       children: [
         const MyBgWidget(),
         WillPopScope(
@@ -57,83 +57,103 @@ class _SmsVerificationScreenState extends State<SmsVerificationScreen> {
           },
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: const CustomAppBar(title: MyStrings.smsVerification,isShowBackBtn: true,fromAuth: true,textColor: MyColor.colorWhite,bgColor: Colors.transparent,),
+            appBar: const CustomAppBar(
+              title: MyStrings.smsVerification,
+              isShowBackBtn: true,
+              fromAuth: true,
+              textColor: MyColor.colorWhite,
+              bgColor: Colors.transparent,
+            ),
             body: GetBuilder<SmsVerificationController>(
               builder: (controller) => controller.isLoading
                   ? const SizedBox(
-                child: Center(
-                    child: CircularProgressIndicator(
-                      color: MyColor.primaryColor,
-                    )),
-              )
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: MyColor.primaryColor,
+                      )),
+                    )
                   : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * .06),
-                    Center(
-                      child: Image.asset(
-                        MyImages.emailVerifyImage,
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .06),
+                          Center(
+                            child: Image.asset(
+                              MyImages.emailVerifyImage,
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .06),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * .07),
+                            child: Text(MyStrings.smsVerificationMsg.tr,
+                                maxLines: 3,
+                                textAlign: TextAlign.center,
+                                style: mulishRegular.copyWith(
+                                    color: MyColor.textColor)),
+                          ),
+                          const SizedBox(height: 30),
+                          OTPFieldWidget(
+                            onChanged: (value) {
+                              controller.currentText = value;
+                            },
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .03),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: controller.submitLoading
+                                ? const RoundedLoadingButton()
+                                : RoundedButton(
+                                    text: MyStrings.verify.tr,
+                                    press: () {
+                                      if (controller.currentText.length == 6) {
+                                        controller.verifyYourSms();
+                                      }
+                                    }),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .04,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                MyStrings.didNotReceiveCode.tr,
+                                style: mulishRegular,
+                              ),
+                              SizedBox(
+                                height: controller.resendLoading ? 5 : 2,
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    controller.sendCodeAgain();
+                                  },
+                                  child: controller.resendLoading
+                                      ? const SizedBox(
+                                          height: 15,
+                                          width: 15,
+                                          child: CircularProgressIndicator(
+                                            color: MyColor.primaryColor,
+                                          ))
+                                      : Text(MyStrings.resend.tr,
+                                          style: mulishBold.copyWith(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: MyColor.colorWhite)))
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height * .06),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * .07),
-                      child: Text(MyStrings.smsVerificationMsg.tr,
-                          maxLines: 3,
-                          textAlign: TextAlign.center,
-                          style: mulishRegular.copyWith(color: MyColor.textColor)),
-                    ),
-                    const SizedBox(height: 30),
-                    OTPFieldWidget(
-                      onChanged: (value) {
-                        controller.currentText = value;
-                      },
-                    ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height * .03),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: controller.submitLoading
-                          ? const RoundedLoadingButton()
-                          : RoundedButton(
-                          text: MyStrings.verify.tr,
-                          press: () {
-                            if (controller.currentText.length == 6) {
-                              controller.verifyYourSms();
-                            }
-                          }),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * .04,),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          MyStrings.didNotReceiveCode.tr,
-                          style: mulishRegular,
-                        ),
-                        SizedBox(height: controller.resendLoading?5:2,),
-                        GestureDetector(
-                            onTap: () {
-                              controller.sendCodeAgain();
-                            },
-                            child: controller.resendLoading?const SizedBox(height:15,width:15,child: CircularProgressIndicator(color: MyColor.primaryColor,)):
-                            Text(MyStrings.resend.tr,
-                                style: mulishBold.copyWith(
-                                    decoration:
-                                    TextDecoration.underline,
-                                    color: MyColor.colorWhite)))
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                  ],
-                ),
-              ),
             ),
           ),
         ),

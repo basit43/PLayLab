@@ -5,7 +5,7 @@ import '../../../core/utils/dimensions.dart';
 import '../../../core/utils/my_color.dart';
 
 class OTPFieldWidget extends StatelessWidget {
-  const OTPFieldWidget({Key? key,required this.onChanged}) : super(key: key);
+  const OTPFieldWidget({Key? key, required this.onChanged}) : super(key: key);
 
   final ValueChanged<String>? onChanged;
 
@@ -23,21 +23,19 @@ class OTPFieldWidget extends StatelessWidget {
         blinkWhenObscuring: false,
         animationType: AnimationType.fade,
         pinTheme: PinTheme(
-          shape: PinCodeFieldShape.box,
-          borderWidth: 1,
-          borderRadius: BorderRadius.circular(5),
-          fieldHeight: 40,
-          fieldWidth: 40,
-          inactiveColor:  MyColor.textFiledFillColor,
-          inactiveFillColor: MyColor.textFiledFillColor,
-          activeFillColor: MyColor.primaryColor.withOpacity(.4),
-          activeColor: MyColor.primaryColor.withOpacity(.4),
-          selectedFillColor: MyColor.primaryColor.withOpacity(.4),
-          selectedColor: MyColor.primaryColor.withOpacity(.4)
-        ),
+            shape: PinCodeFieldShape.box,
+            borderWidth: 1,
+            borderRadius: BorderRadius.circular(5),
+            fieldHeight: 40,
+            fieldWidth: 40,
+            inactiveColor: MyColor.textFiledFillColor,
+            inactiveFillColor: MyColor.textFiledFillColor,
+            activeFillColor: MyColor.primaryColor.withOpacity(.4),
+            activeColor: MyColor.primaryColor.withOpacity(.4),
+            selectedFillColor: MyColor.primaryColor.withOpacity(.4),
+            selectedColor: MyColor.primaryColor.withOpacity(.4)),
         cursorColor: MyColor.colorBlack,
-        animationDuration:
-        const Duration(milliseconds: 100),
+        animationDuration: const Duration(milliseconds: 100),
         enableActiveFill: true,
         keyboardType: TextInputType.number,
         beforeTextPaste: (text) {

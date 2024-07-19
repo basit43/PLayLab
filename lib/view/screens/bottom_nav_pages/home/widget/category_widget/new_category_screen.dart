@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:play_lab/core/utils/my_color.dart';
+import 'package:play_lab/view/screens/show_more/show_more.dart';
 import '../../../../../../core/helper/string_format_helper.dart';
 import '../../../../../../core/route/route.dart';
 import '../../../../../../core/utils/dimensions.dart';
@@ -28,6 +29,7 @@ class CategoryScreen extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: categoryController.categories.map((category) {
+                  print('name of category ${category.name}');
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,7 +50,14 @@ class CategoryScreen extends StatelessWidget {
                               ),
                               TextButton(
                                   onPressed: () {
-                                    Get.toNamed(RouteHelper.allEpisodeScreen);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ShowMoreScreen(
+                                                  moreItems: category.items,
+                                                  categoryName: category.name!,
+                                                )));
                                   },
                                   child: const Text(
                                     'Show More',

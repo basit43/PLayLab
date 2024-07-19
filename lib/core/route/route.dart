@@ -95,7 +95,6 @@ class RouteHelper {
   static const String latestSeriesScreen = '/latest-series-screen';
 
   static List<GetPage> routes = [
-    GetPage(name: showMoreScreen, page: () => const ShowMoreScreen()),
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: onboardScreen, page: () => const OnBoardingScreen()),
     GetPage(name: allMovieScreen, page: () => const AllMovieScreen()),

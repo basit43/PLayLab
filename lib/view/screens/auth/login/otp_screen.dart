@@ -400,7 +400,10 @@ class _OtpScreenState extends State<OtpScreen> {
               padding: EdgeInsets.only(left: 15.0, top: 30),
               child: Text(
                 'Verification',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
               ),
             ),
             const SizedBox(height: 15),
@@ -471,6 +474,7 @@ class _OtpScreenState extends State<OtpScreen> {
         controller: controller,
         enabled: enabled,
         readOnly: true,
+        style: const TextStyle(color: MyColor.t2),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           labelText: label,
